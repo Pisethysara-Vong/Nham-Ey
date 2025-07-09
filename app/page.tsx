@@ -16,7 +16,7 @@ import { PlaceDetailsCard } from '@/components/PlaceDetailsCard';
 export default function HomePage() {
   // const [userPosition, setUserPosition] = useState<LatLngLiteral | null>(null);
   // const [places, setPlaces] = useState<any[]>([]);
-  // const [selectedPlace, setSelectedPlace] = useState<any | null>(null);
+  const [selectedPlace, setSelectedPlace] = useState<string | null>('MPTC');
   // const [shouldFollowUser, setShouldFollowUser] = useState(false);
   // const [showInputForm, setShowInputForm] = useState(true);
 
@@ -66,15 +66,24 @@ export default function HomePage() {
       {showInputForm && (
         <InputForm onSubmit={handleSearch} onClose={() => setShowInputForm(false)} />
       )}
-
-      {selectedPlace && (
-        <PlaceDetailsCard
-          place={selectedPlace}
-          onClose={() => setSelectedPlace(null)}
-          onGetDirections={() => setShouldFollowUser(true)}
-        />
-      )} */}
-      <PlaceDetailsCard />
+        */}
+      <AnimatePresence>
+        {selectedPlace && (
+          <motion.div
+            key="place-details"
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'tween', duration: 0.3 }}
+            className="fixed top-0 left-0 bottom-0 z-[1000] flex w-48 md:w-1/4 h-full"
+          >
+            <PlaceDetailsCard
+              place={selectedPlace}
+              onClose={() => setSelectedPlace(null)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

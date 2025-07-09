@@ -61,7 +61,7 @@ const ImageCarousel = () => {
       {/* Left arrow */}
       <button
         onClick={() => paginate(-1)}
-        className="absolute top-1/2 left-2 -translate-y-1/2 z-10 bg-white/70 hover:bg-white rounded-full p-1"
+        className="absolute top-1/2 left-2 -translate-y-1/2 z-10 image-carousel-btn"
       >
         <IoIosArrowBack size={20} />
       </button>
@@ -69,7 +69,7 @@ const ImageCarousel = () => {
       {/* Right arrow */}
       <button
         onClick={() => paginate(1)}
-        className="absolute top-1/2 right-2 -translate-y-1/2 z-10 bg-white/70 hover:bg-white rounded-full p-1"
+        className="absolute top-1/2 right-2 -translate-y-1/2 z-10 image-carousel-btn"
       >
         <IoIosArrowForward size={20} />
       </button>
