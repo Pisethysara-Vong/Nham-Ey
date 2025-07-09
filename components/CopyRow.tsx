@@ -52,7 +52,7 @@ const CopyRow = ({
       >
         {/* Tooltip */}
         {hovered && (
-          <div className="absolute -bottom-6 left-6 bg-card-title text-white text-sm px-2 py-1 rounded shadow z-10 pointer-events-none">
+          <div className="absolute -bottom-6 left-6 bg-card-title text-white text-sm px-2 py-1 rounded shadow z-[999] pointer-events-none">
             {tooltip}
           </div>
         )}

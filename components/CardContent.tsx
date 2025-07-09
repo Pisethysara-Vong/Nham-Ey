@@ -30,7 +30,7 @@ const CardContent = ({ tab }: { tab: string }) => {
         </button>
       </div>
 
-      <div className="py-2 flex flex-col overflow-y-auto scrollbar-hide h-full">
+      <div className="pt-2 pb-8 flex flex-col z-0">
         <CopyRow
           icon={FaMapMarkerAlt}
           value="123 Main Street, Phnom Penh"
