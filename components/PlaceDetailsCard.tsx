@@ -32,7 +32,7 @@ export const PlaceDetailsCard = ({
       <button
         onClick={onClose}
         aria-label="Close panel"
-        className="absolute top-1/2 right-[-1.2rem] -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100 z-20"
+        className="absolute top-1/2 right-[-1.2rem] -translate-y-1/2 bg-white border border-gray-300 rounded-full p-2 shadow hover:bg-gray-100 z-20 cursor-pointer"
       >
         <IoIosArrowBack size={20} />
       </button>

@@ -17,16 +17,16 @@ const CardContent = ({ tab }: { tab: string }) => {
     <>
       <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-2 justify-center">
         <button className="flex flex-col items-center gap-1 group">
-          <div className="btn-active">
+          <div className="card-btn-active">
             <FaDirections className="text-base text-white" />
           </div>
-          <div className="btn-text">Directions</div>
+          <div className="card-btn-text">Directions</div>
         </button>
         <button className="flex flex-col items-center gap-1">
-          <div className="btn-unactive">
+          <div className="card-btn-unactive">
             <GoShareAndroid className="text-base text-tabs-active" />
           </div>
-          <div className="btn-text">Share</div>
+          <div className="card-btn-text">Share</div>
         </button>
       </div>
 

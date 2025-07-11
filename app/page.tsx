@@ -1,16 +1,20 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
-import { LatLngLiteral } from '@/types/place';
-import usePlaces from '@/hooks/usePlace';
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { LatLngLiteral } from "@/types/place";
+import usePlaces from "@/hooks/usePlace";
 import { AnimatePresence, motion } from "framer-motion";
-import { PlaceDetailsCard } from '@/components/PlaceDetailsCard';
+import { PlaceDetailsCard } from "@/components/PlaceDetailsCard";
+import ShowInputFormButton from "@/components/ShowInputFormBtn";
 
-const Map = dynamic(() => import('@/components/Map'), { ssr: false });
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 // const InputForm = dynamic(() => import('@/components/InputForm'), { ssr: false });
 // const ShowInputFormButton = dynamic(() => import('@/components/ShowInputFormButton'), { ssr: false });
-// const BackToLocationButton = dynamic(() => import('@/components/BackToLocationButton'), { ssr: false });
+const BackToLocationButton = dynamic(
+  () => import("@/components/UserLocationBtn"),
+  { ssr: false }
+);
 
 export default function HomePage() {
   const [userPosition, setUserPosition] = useState<LatLngLiteral | null>(null);
@@ -18,6 +22,7 @@ export default function HomePage() {
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
   const [shouldFollowUser, setShouldFollowUser] = useState(true);
   // const [showInputForm, setShowInputForm] = useState(true);
+  const [userInteracted, setUserInteracted] = useState(false);
 
   const { fetchPlaces } = usePlaces();
 
@@ -74,25 +79,32 @@ export default function HomePage() {
           setSelectedPlace={setSelectedPlace}
           shouldFollowUser={shouldFollowUser}
           setShouldFollowUser={setShouldFollowUser}
+          userInteracted={userInteracted}
+          setUserInteracted={setUserInteracted}
         />
       )}
 
+      <BackToLocationButton
+        onClick={() => {
+          setShouldFollowUser(true);
+          setUserInteracted(false);
+        }}
+      />
+      {/* <ShowInputFormButton onClick={() => setShowInputForm(true)} /> */}
+      <ShowInputFormButton onClick={() => {console.log("Show input form clicked");}} />
 
-      {/* <BackToLocationButton onClick={() => setShouldFollowUser(true)} />
-      <ShowInputFormButton onClick={() => setShowInputForm(true)} />
-
-      {showInputForm && (
+      {/* {showInputForm && (
         <InputForm onSubmit={handleSearch} onClose={() => setShowInputForm(false)} />
       )} */}
-       
+
       <AnimatePresence>
         {selectedPlace && (
           <motion.div
             key="place-details"
-            initial={{ x: '-100%' }}
+            initial={{ x: "-100%" }}
             animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'tween', duration: 0.3 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
             className="fixed top-0 left-0 bottom-0 z-[1000] flex w-48 md:w-1/4 h-full"
           >
             <PlaceDetailsCard

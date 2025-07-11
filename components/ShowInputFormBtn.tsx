@@ -1,8 +1,8 @@
 "use client";
 import { useRef } from "react";
-import { MdMyLocation } from "react-icons/md";
+import { MdFastfood } from "react-icons/md";
 
-export default function BackToLocationButton({
+export default function ShowInputFormButton({
   onClick,
 }: {
   onClick?: () => void;
@@ -24,10 +24,11 @@ export default function BackToLocationButton({
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-6 util-btn"
-      aria-label="Current Location"
+      className="fixed bottom-20 util-btn"
+      aria-label="Find Places to Eat"
+      title="Find Places to Eat"
     >
-      <MdMyLocation className="w-5 h-5" />
+      <MdFastfood className="w-5 h-5" />
     </button>
   );
 }

@@ -6,7 +6,7 @@ import {
   Polyline,
   useJsApiLoader,
 } from "@react-google-maps/api";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { LatLngLiteral } from "@/types/place";
 
 type MapProps = {
@@ -17,6 +17,8 @@ type MapProps = {
   setSelectedPlace: (place: any | null) => void;
   shouldFollowUser: boolean;
   setShouldFollowUser: (value: boolean) => void;
+  userInteracted: boolean;
+  setUserInteracted: (value: boolean) => void;
 };
 
 const containerStyle = {
@@ -32,9 +34,10 @@ const Map = ({
   setSelectedPlace,
   shouldFollowUser,
   setShouldFollowUser,
+  userInteracted,
+  setUserInteracted,
 }: MapProps) => {
   const mapRef = useRef<google.maps.Map | null>(null);
-  const [userInteracted, setUserInteracted] = useState(false);
   const selectedLatLng = selectedPlace?.geometry?.location;
   const showPolyline = selectedLatLng && shouldFollowUser;
 
@@ -43,15 +46,13 @@ const Map = ({
     libraries: ["places"],
   });
 
-  // Pan to user only if user hasn't manually moved map
   useEffect(() => {
     if (isLoaded && !userInteracted && shouldFollowUser && mapRef.current) {
       mapRef.current.panTo(userPosition);
-      setShouldFollowUser(false); // Stop following user after initial pan
+      setShouldFollowUser(false);
     }
   }, [isLoaded, userPosition, shouldFollowUser, userInteracted]);
 
-  // When selectedPlace changes (user clicked a marker), reset userInteracted to false so it pans again
   useEffect(() => {
     if (isLoaded && selectedPlace && mapRef.current) {
       const place = places.find((p) => p.place_id === selectedPlace);
@@ -72,9 +73,12 @@ const Map = ({
       onLoad={(map) => {
         mapRef.current = map;
       }}
-      onClick={() => setSelectedPlace(null)}
-      onDragStart={() => setUserInteracted(true)} // User started manual interaction
-      onZoomChanged={() => setUserInteracted(true)} // User zoomed manually
+      // onClick={() => setSelectedPlace(null)}
+      onDragStart={() => setUserInteracted(true)}
+      onZoomChanged={() => setUserInteracted(true)}
+      options={{
+        disableDefaultUI: true, // Removes all default controls
+      }}
     >
       {/* User marker */}
       <Marker
@@ -87,6 +91,7 @@ const Map = ({
           strokeWeight: 2,
           strokeColor: "white",
         }}
+        zIndex={9999}
       />
 
       {/* Place markers */}
@@ -98,6 +103,7 @@ const Map = ({
             lng: place.geometry.location.lng,
           }}
           onClick={() => setSelectedPlace(place.place_id)}
+          zIndex={1}
         />
       ))}
 
