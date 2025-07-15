@@ -8,6 +8,8 @@ const usePlaces = () => {
       type: string;
       radius: number;
       price_level?: number;
+      keyword?: string;
+      fetch_all?: boolean;
     }) => {
       const query = new URLSearchParams(params as any).toString();
       const res = await fetch(`/api/places?${query}`);

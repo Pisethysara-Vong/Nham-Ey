@@ -99,7 +99,7 @@ const CopyRow = ({
       </div>
 
       {/* Snackbar */}
-      {!noCopy && <Snackbar visible={showSnackbar} />}
+      {!noCopy && <Snackbar visible={showSnackbar} message="Copied to Clipboard" />}
     </div>
   );
 };
